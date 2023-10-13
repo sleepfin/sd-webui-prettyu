@@ -17,18 +17,17 @@ Advantages:
 
 # Preparation
 - Install [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-- Download base Stable-Diffusion-Checkpoint and copy it to `stable-diffusion-webui/`
+- Download base Stable-Diffusion-Checkpoint and copy it to `stable-diffusion-webui/models/Stable-diffusion`
 - Install extension [sd-webui-additional-networks](https://github.com/kohya-ss/sd-webui-additional-networks)
   - Extensions -> Install from URL (`https://github.com/kohya-ss/sd-webui-additional-networks.git`) -> Install
 - Install extension [adtailer](https://github.com/Bing-su/adetailer)
   - Extensions -> Install from URL (`https://github.com/Bing-su/adetailer.git`) -> Install
 - Install extension [sd-webui-controlnet](https://github.com/Mikubill/sd-webui-controlnet)
   - Extensions -> Install from URL (`https://github.com/Mikubill/sd-webui-controlnet.git`) -> Install
+
+For high-resolution 1024x1024
 - Download [controlnet](https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main) to directory `stable-diffusion-webui/extensions/sd-webui-controlnet/models/`
   - Download [control_v11f1e_sd15_tile.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11f1e_sd15_tile.pth)
-  - Download [control_v11p_sd15_canny.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11p_sd15_canny.pth)
-  - Download [control_v11p_sd15_openpose.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11p_sd15_openpose.pth)
-  - Download [control_v11f1p_sd15_depth.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11f1p_sd15_depth.pth)
 
 # Installation
 1. Open "Extensions" tab.
