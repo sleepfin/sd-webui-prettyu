@@ -32,7 +32,7 @@ For high-resolution 1024x1024
 # Installation
 1. Open "Extensions" tab.
 2. Open "Install from URL" tab in the tab.
-3. Enter `???` to "URL for extension's git repository".
+3. Enter `https://github.com/sleepfin/sd-webui-prettyu.git` to "URL for extension's git repository".
 4. Press "Install" button.
 5. It may take few minutes (tensorflow/mmcv installation is time-consuming)
 6. You will see the message "Installed into stable-diffusion-webui\extensions\xxx. Use Installed tab to restart".
