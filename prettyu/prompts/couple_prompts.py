@@ -1,0 +1,107 @@
+base_prompt = "(looking at viewer,{}:1.5),(masterpiece,best quality,high quality,highres,ultra-detailed)"
+light_prompt = "(expansive:1.2)"
+negative_prompt = {
+    "normal": "NSFW,(worst quality,low quality,normal quality,badhandv4,ng_deepnegative_v1_75t,open mouth,thick lips:1.2),lowres,watermark,Blurred eyes,naked,nude,(teeth:1.5)",
+    "no_glasses": "NSFW,(worst quality,low quality,normal quality,badhandv4,ng_deepnegative_v1_75t,open mouth,thick lips:1.2),lowres,watermark,Blurred eyes,naked,nude,(teeth:1.5),glasses",
+}
+background_prompt = {
+    # "beach_sunset": "A serene beach with golden sands, a setting sun casting warm hues across the sky,ocean waves",
+    # "home_day": "Soft-hued living room with cozy furniture, a fireplace with a soft rug in front",
+    # "under_stars": "A clear night sky full of stars, possibly with a telescope or a picnic setup in a meadow or on a hill",
+    # "snowy_lovebirds": "A winter wonderland filled with snow-covered trees",
+    # "prom_night": "An elegant ballroom with chandeliers",
+    # "sky_dancer": "A tranquil beach at midnight with a shimmering ocean under the starry sky,The moonlight softly illuminates the scene",
+    # "spring_garden": "A lush garden with blooming cherry blossoms,a winding stone path leading to a vintage wooden bench,butterflies flying around",
+    # "office_professional": "A modern office space with a sleek wooden desk, state-of-the-art laptop open with financial charts, a wall clock showing it's nearly end-of-day, and a small potted succulent plant",
+    # "urban_nightlife": "A bustling city street illuminated by neon lights from billboards, towering skyscrapers in the background, cars and people passing by",
+    # "autumnal_cafe": "A cozy coffee shop with exposed brick walls, wooden tables, and a chalkboard menu, a large window shows falling autumn leaves outside",
+    # "comic_excitement": "A bustling convention hall filled with colorful booths, cosplayers and merchandise, large banners showcasing comic book and anime characters",
+    # "rainy_night_bookstore": "A dimly lit independent bookstore, raindrops trickling down a window, shelves filled with ancient and new books, a soft glow from table lamps",
+    "rainforest_expedition": "Lush tropical foliage, a flowing waterfall in the background, colorful birds and exotic plants",
+    "space_exploration": "A spaceship cockpit with high-tech controls, windows showing the vastness of outer space and distant planets",
+    "racetrack_glamour": "A bustling racetrack with fast cars zooming by, pit crew in action, grandstand filled with spectators",
+    "farm_life": "A scenic farm with crops, barns, and farm animals like cows and chickens, perhaps a tractor in the distance",
+    "romantic_wedding": "A beautiful wedding venue, perhaps a garden or a beach, adorned with flowers, ribbons, and a beautifully set altar",
+    "traveling_historian": "An ancient library with dusty scrolls, faded maps, and mysterious artifacts, or possibly a futuristic archive with holographic displays",
+    "music_festival": "An open-air stage with bright lights and speakers, a crowd of festival-goers, and multiple food and merchandise stalls",
+    "school_life": "A typical classroom with desks, a blackboard, and educational posters",
+    "lazy_homeday": "A cozy living room or bedroom setting with plush cushions, soft blankets and a bookshelf, a cup of coffee or tea on a side table,a pet lounging nearby",
+}
+
+clothing_prompt = {
+    # "beach_sunset": "",
+    # "home_day": "",
+    # "under_stars": "",
+    # "snowy_lovebirds": "",
+    # "prom_night": "",
+    # "sky_dancer": "",
+    # "spring_garden": "",
+    # "office_professional": "",
+    # "urban_nightlife": "",
+    # "autumnal_cafe": "",
+    # "comic_excitement": "",
+    # "rainy_night_bookstore": "",
+    "rainforest_expedition": "",
+    "space_exploration": "",
+    "racetrack_glamour": "",
+    "farm_life": "",
+    "romantic_wedding": "",
+    "traveling_historian": "",
+    "music_festival": "",
+    "school_life": "",
+    "lazy_homeday": "",
+}
+hair_prompt = {
+    # "beach_sunset": "",
+    # "home_day": "",
+    # "under_stars": "",
+    # "snowy_lovebirds": "",
+    # "prom_night": "",
+    # "sky_dancer": "",
+    # "spring_garden": "",
+    # "office_professional": "",
+    # "urban_nightlife": "",
+    # "autumnal_cafe": "",
+    # "comic_excitement": "",
+    # "rainy_night_bookstore": "",
+    "rainforest_expedition": "",
+    "space_exploration": "",
+    "racetrack_glamour": "",
+    "farm_life": "",
+    "romantic_wedding": "",
+    "traveling_historian": "",
+    "music_festival": "",
+    "school_life": "",
+    "lazy_homeday": "",
+}
+posing_prompt = {
+    # "beach_sunset": "happy,shy",
+    # "home_day": "happy,shy",
+    # "under_stars": "happy,shy",
+    # "snowy_lovebirds": "happy,shy",
+    # "prom_night": "happy,shy",
+    # "sky_dancer": "happy,shy",
+    # "spring_garden": "happy,shy",
+    # "office_professional": "happy,shy",
+    # "urban_nightlife": "happy,shy",
+    # "autumnal_cafe": "happy,shy",
+    # "comic_excitement": "happy,shy",
+    # "rainy_night_bookstore": "happy,shy",
+    "rainforest_expedition": "happy,shy",
+    "space_exploration": "happy,shy",
+    "racetrack_glamour": "happy,shy",
+    "farm_life": "happy,shy",
+    "romantic_wedding": "happy,shy",
+    "traveling_historian": "happy,shy",
+    "music_festival": "happy,shy",
+    "school_life": "happy,shy",
+    "lazy_homeday": "happy,shy",
+}
+
+adtailer_face_prompt = "{},{},looking at viewer,(masterpiece,best quality,high quality,highres,ultra-detailed),happy,shy"
+adtailer_face_negative_prompt = {
+    "normal": "NSFW,(worst quality,low quality,normal quality,ng_deepnegative_v1_75t:1.5),thick lips,lowres,watermark,Blurred eyes",
+    "no_glasses": "NSFW,(worst quality,low quality,normal quality,ng_deepnegative_v1_75t:1.5),thick lips,lowres,watermark,Blurred eyes,glasses"
+}
+adtailer_hand_prompt = "hand,(masterpiece, best quality, high quality, highres, ultra-detailed)"
+adtailer_hand_negative_prompt = "NSFW,(worst quality,low quality,normal quality,badhandv4:1.5),lowres,watermark"

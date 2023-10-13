@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stable Diffusion Model</title>
+    <!-- 引入 Lightbox 的 CSS 文件 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af); /* 添加渐变背景 */
+            color: #ecf0f1;
+        }
+
+        #title-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10vh;
+            background-color: rgba(44, 62, 80, 0.85); /* 添加透明度 */
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4vw;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+        }
+
+        #side-bar {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            width: 20vw;
+            height: 90vh;
+            background-color: rgba(52, 73, 94, 0.85); /* 添加透明度 */
+            color: #ecf0f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2vh;
+            padding-top: 3vh;
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+        }
+
+        #side-bar div {
+            cursor: pointer;
+            padding: 2vh 0;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+            width: 80%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.1); /* 添加背景 */
+        }
+
+        #side-bar div:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05); /* 添加放大效果 */
+        }
+
+        #content {
+            margin-left: 22vw;
+            margin-top: 12vh;
+            width: 73vw;
+            height: 88vh;
+            /* overflow-y: scroll; */
+            padding: 2vh;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05); /* 添加背景 */
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+        }
+
+        label {
+            display: block; /* make labels display as block elements */
+            margin: 10px 0;
+        }
+        
+        #positive_prompt {
+            width: 50vw;          /* 设置宽度为屏幕的80% */
+            min-height: 100px;
+            padding: 15px;        /* 内部填充 */
+            border: none;         /* 去除默认边框 */
+            border-radius: 5px;   /* 轻微圆角 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微的阴影 */
+            font-size: 1rem;      /* 设置字体大小 */
+            outline: none;        /* 去除焦点时的边框 */
+            background-color: #fff;  /* 设定背景色 */
+            transition: box-shadow 0.3s ease;  /* 为阴影添加过渡效果 */
+        }
+
+        #positive_prompt:focus {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 焦点时的阴影更加明显 */
+        }
+
+        #negative_prompt {
+            width: 50vw;          /* 设置宽度为屏幕的80% */
+            min-height: 100px;
+            padding: 15px;        /* 内部填充 */
+            border: none;         /* 去除默认边框 */
+            border-radius: 5px;   /* 轻微圆角 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微的阴影 */
+            font-size: 1rem;      /* 设置字体大小 */
+            outline: none;        /* 去除焦点时的边框 */
+            background-color: #fff;  /* 设定背景色 */
+            transition: box-shadow 0.3s ease;  /* 为阴影添加过渡效果 */
+        }
+
+        #negative_prompt:focus {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 焦点时的阴影更加明显 */
+        }
+
+        /* 用于调整batch-size的滑动条 */
+        .slider-wrapper {
+            position: relative;
+            width: 60%;
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+
+        .slider-section {
+            margin-bottom: 30px;  /* 间距 */
+        }
+
+        .slider-label {
+            font-size: 18px;
+            color: #00C3FF;
+            margin-bottom: 10px;  /* 为标题和滑动条之间增加一些间距 */
+            display: block;
+        }
+
+        .tech-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 50px; /* 更加圆滑 */
+            background: linear-gradient(90deg, #00C3FF 0%, #444 100%); /* Gradient背景 */
+            outline: none;
+            padding: 0;
+            margin: 0;
+            transition: background .3s;
+        }
+
+        .tech-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FFF;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(0,195,255,0.6); /* 增强发光效果 */
+            transition: transform .3s; /* 过渡效果 */
+        }
+
+        .tech-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FFF;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(0,195,255,0.6);
+        }
+
+        .tech-slider:hover, .tech-slider:focus {
+            background: linear-gradient(90deg, #00C3FF 0%, #494bd3 100%);
+        }
+
+        .tech-slider:focus::-webkit-slider-thumb {
+            transform: scale(1.1); /* 当获取焦点时放大 */
+        }
+
+        .slider-value {
+            position: absolute;
+            bottom: 100%;  /* 位置设置为滑动条的上方 */
+            left: 50%;  /* 水平居中 */
+            transform: translateX(-50%); /* 水平居中 */
+            margin-bottom: 8px;  /* 添加间距以使其远离滑动条 */
+            font-size: 18px;
+            color: #FFF;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn {
+            background-color: #00C3FF;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #FFF;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,195,255,0.5);
+            transition: background-color .3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0095CC;
+        }
+
+        /* Button */
+        .sci-fi-btn {
+            border: none;
+            outline: none;
+            background: linear-gradient(45deg, #007BFF, #22FFA9);
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            color: #fff;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            text-align: center;
+        }
+
+        .sci-fi-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .sci-fi-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+            transform: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 100%; /* Make the progress bar cover the entire height of the button for added effect */    
+            background-color: rgba(255, 255, 255, 0.2); /* Give it a translucent white for a futuristic look */
+            transition: width 0.5s; /* Make the transition smoother */
+        }
+
+        .btn-text {
+            z-index: 2;
+            position: relative;
+        }
+
+        /* gallery相关 */
+        img {
+            margin-top: 20px;
+            max-width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden; /* 隐藏垂直滚动条 */
+        }
+        .gallery img {
+            flex: 0 0 auto;
+            margin-right: 10px;
+            cursor: pointer;
+            width: 120px; /* 调整到你想要的缩略图大小 */
+        }
+        .gallery::-webkit-scrollbar {
+            display: none; /* 隐藏滚动条 for Chrome, Safari and Opera */
+        }
+
+        /* Sidebar */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeIn 0.5s forwards; /* 添加淡入效果 */
+        }
+
+        /* Upload页面 */
+        .upload_gallery img {
+            width: 150px;
+            margin: 10px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            color: rgb(138, 35, 35);
+            display: none; /* 默认隐藏叉号 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container:hover .delete-btn {
+            display: flex; /* 鼠标悬停时显示叉号并启用flex布局 */
+        }
+
+        /* upload进度条 */
+        #uploadProgress {
+            width: 60%;
+            margin-top: 10px;
+        }
+
+        /* 其他 */
+        @media (max-width: 600px) {
+            #side-bar {
+                width: 100vw;
+                height: 15vh;
+                flex-direction: row;
+                justify-content: space-evenly;
+                top: 10vh;
+                box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            }
+
+            #content {
+                margin-top: 27vh;
+                margin-left: 0;
+                width: 100vw;
+                padding: 2vh;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div id="title-bar">
+        SDWEB
+    </div>
+    
+    <div id="side-bar">
+        <div onclick="switchContent('upload-content')">上传</div>
+        <div onclick="switchContent('train-content')">训练</div>
+        <div onclick="switchContent('generate-content')">生成</div>
+    </div>
+
+    <div id="content">
+        <div id="upload-content" class="content-section">
+            <h2>上传页面内容</h2>
+            <input type="file" id="imageInput" multiple>
+            <!-- <button onclick="uploadImages()">Upload</button> -->
+            <progress id="uploadProgress" value="0" max="100" style="display:none;"></progress>
+            <div class="upload_gallery" id="upload_gallery"></div>
+        </div>
+        <div id="train-content" class="content-section" style="display:none">
+            <h2>训练页面内容</h2>
+            <!-- 训练的相关内容 -->
+        </div>
+        <div id="generate-content" class="content-section" style="display:none">
+            <h2>生成页面内容</h2>
+            <div>
+                <label for="positive_prompt">Positive Text Prompt:</label>
+                <textarea id="positive_prompt" autocomplete="off""></textarea>
+
+                <label for="negative_prompt">Negative Text Prompt:</label>
+                <textarea id="negative_prompt" autocomplete="off""></textarea>
+                <br>
+
+                <!-- 用于调整batch_size的滑动条 -->
+                <div class="slider-section">
+                    <div class="slider-wrapper">
+                        <input type="range" min="1" max="8" value="1" id="techSlider" class="tech-slider" step="0.1">
+                        <div class="slider-value" id="sliderValue">batch-size=1</div>
+                    </div>
+                </div>
+
+                <!-- <button class="sci-fi-btn" onclick="">Generate</button> -->
+                <button class="sci-fi-btn" onclick="generateImage()">
+                    <span class="btn-text">开始作画!</span>
+                    <div class="progress-bar"></div>
+                </button>
+
+            </div>
+            <div>
+                <!-- <img id="output_image" src="" alt="Generated Image"> -->
+                <div class="gallery">
+                    <!-- JavaScript将在这里动态插入图像链接 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <script>
+
+        //生成图片
+        function generateImage() {
+            const task_id = Math.random().toString(36).substring(2, 15);  // 生成随机hash字符串
+            var sliderValue = $('#techSlider').val(); // batch-size
+
+            // 设置进度条
+            const button = document.querySelector('.sci-fi-btn');
+            const btnText = document.querySelector('.btn-text');
+
+            // Disable the button
+            button.disabled = true;
+            btnText.textContent = "作画中...";
+
+            // 开始作画
+            const positivePrompt = document.getElementById('positive_prompt').value;
+            const negativePrompt = document.getElementById('negative_prompt').value;
+
+            fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `task_id=${task_id}&positive_prompt=${positivePrompt}&negative_prompt=${negativePrompt}&batch_size=${sliderValue}`
+                });
+            
+            // Start polling for progress
+            progressInterval = setInterval(() => queryProgress(task_id), 1000);
+        }
+
+        //刷新进度条
+        function queryProgress(task_id) {
+            const progressBar = document.querySelector('.progress-bar');
+            const button = document.querySelector('.sci-fi-btn');
+            const btnText = document.querySelector('.btn-text');
+
+            // Call the backend to get the progress
+            fetch(`/getProgress?task_id=${task_id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch progress");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const currentProgress = data.progress;
+                    progressBar.style.width = `${currentProgress}%`;
+
+                    generate_status = data.status
+                    if (generate_status == "complete") {
+                        // 把返回的图片刷新到gallery
+                        let images = data.images;
+                        for (let imageBase64 of images) {
+                            let imageLink = $('<a>')
+                                .attr('href', imageBase64)
+                                .attr('data-lightbox', 'gallery')
+                                .append($('<img>').attr('src', imageBase64));
+
+                            $('.gallery').append(imageLink);
+                        }
+                        
+                        // 按钮回到初始化状态
+                        clearInterval(progressInterval);
+                        btnText.textContent = "开始作画!";
+                        button.disabled = false;
+                        progressBar.style.width = "0%";
+                        
+                        // const imageSrc = 'data:image/jpeg;base64,' + data.image_base64;
+                        // document.getElementById('output_image').src = imageSrc;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching progress:", error);
+                    // Handle errors as appropriate for your application, e.g., showing an error message
+                });
+        }
+
+        // gallery左右滑动
+        $(document).ready(function () {
+            $('.gallery').on('wheel', function(e) {
+                // Prevent the default browser behavior
+                e.preventDefault();
+
+                if (e.originalEvent.deltaY > 0) {
+                    this.scrollLeft += 40; // Amount of pixels to scroll, adjust as needed
+                } else {
+                    this.scrollLeft -= 40; // Amount of pixels to scroll, adjust as needed
+                }
+            });
+        });
+
+        // 滑动条调整batch-size
+        $(document).ready(function() {
+            const $techSlider = $('#techSlider');
+            const $sliderValue = $('#sliderValue');
+            
+            $techSlider.on('input', function() {
+                $sliderValue.text('batch-size=' + Math.round($(this).val())); // 使用Math.round使其显示为整数
+            });
+        });
+
+        // 侧边栏
+        function switchContent(sectionId) {
+            // 获取所有内容部分
+            const sections = document.querySelectorAll('.content-section');
+
+            // 隐藏所有内容部分
+            sections.forEach((section) => {
+                section.style.display = 'none';
+            });
+
+            // 显示选中的内容部分
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+        }
+
+        // 上传图片相关
+        function loadImages() {
+            $.get("/get-images", function (data) {
+                $('#upload_gallery').empty();
+                data.images.forEach(image => {
+                    let img = $('<img>').attr('src', image);
+                    let deleteBtn = $('<button class="delete-btn">✕</button>')
+                        .click(function (event) {
+                            event.stopPropagation();  // 阻止冒泡
+                            deleteImage(image);
+                        });
+                    let container = $('<div class="image-container"></div>')
+                        .append(img)
+                        .append(deleteBtn);
+                    $('#upload_gallery').append(container);
+                });
+            });
+        }
+
+        $('#imageInput').on('change', function() {
+            if (this.files.length > 0) {
+                uploadImages();
+            }
+        });
+
+        function uploadImages() {
+            let formData = new FormData();
+            let files = $('#imageInput')[0].files;
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("images", files[i]);
+            }
+
+            // 禁用上传按钮
+            $('button:contains("Upload")').prop('disabled', true);
+
+            // 显示进度条并初始化为0
+            $('#uploadProgress').show().val(0);
+
+            $.ajax({
+                url: "/upload",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            $('#uploadProgress').val(percentComplete * 100);  // 更新进度条的值
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function (response) {
+                    loadImages();
+                    
+                    // 上传完成后重置进度条和按钮
+                    $('#uploadProgress').hide().val(0);
+                    $('button:contains("Upload")').prop('disabled', false);
+                }
+            });
+        }
+
+        function deleteImage(imageSrc) {
+            $.post("/delete", {image: imageSrc}, function (data) {
+                loadImages();
+            });
+        }
+
+        loadImages();  // Initially load images
+
+    </script>
+
+</body>
+
+</html>
