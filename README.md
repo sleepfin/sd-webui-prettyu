@@ -14,10 +14,12 @@ Advantages:
 1. Linux with Ubuntu/Centos
 2. Nvidia-GPU with CUDA >= 11.x
 3. gcc/g++ >= 6.0
+4. Connected to Internet (pip/huggingface/github)
 
 # Preparation
 - Install [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-- Download base Stable-Diffusion-Checkpoint and copy it to `stable-diffusion-webui/models/Stable-diffusion`
+- Download [majicMIX realistic](https://civitai.com/api/download/models/126470) and copy it to `stable-diffusion-webui/models/Stable-diffusion/`   
+  - Set `majicmixRealistic_betterV2V25.safetensors` as Stable Diffusion checkpoint.
 - Install extension [sd-webui-additional-networks](https://github.com/kohya-ss/sd-webui-additional-networks)
   - Extensions -> Install from URL (`https://github.com/kohya-ss/sd-webui-additional-networks.git`) -> Install
 - Install extension [adtailer](https://github.com/Bing-su/adetailer)
@@ -54,9 +56,6 @@ For high-resolution 1024x1024
     - Click `Generate`
 
 4. Generated Photos will be showed in `photos`, you can also click `Show more photos` to check more photos which is classified as low quality (There is a chance that all photos are classified as low quality)
-
-# Suggestions
-We highly recommend you to use [majicMIX realistic](https://civitai.com/models/43331?modelVersionId=126470) as base checkpoint (v2.5 or v7 version). You can also optionally set clip_skip to 2 (Settings->Stable Diffusion->Clip skip, but according to my tests, there is not much difference)
 
 # Plans
 - [x] Support higher resolution of 1024x1024 (Controlnet-tile hyper-res)
