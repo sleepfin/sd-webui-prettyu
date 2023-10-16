@@ -1,0 +1,4 @@
+[submodule "prettyu/third_party/sd-scripts"]
+	path = prettyu/third_party/sd-scripts
+	url = https://github.com/bmaltais/kohya_ss.git
+	branch = master
