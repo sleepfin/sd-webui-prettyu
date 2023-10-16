@@ -12,7 +12,7 @@ Advantages:
 
 # Requirements
 1. Linux with Ubuntu/Centos
-2. Nvidia-GPU with CUDA >= 11.x
+2. Nvidia-GPU + CUDA>=11.x + CuDNN(compatible with CUDA)
 3. gcc/g++ >= 6.0
 4. Connected to Internet (pip/huggingface/github)
 
