@@ -17,6 +17,7 @@ Advantages:
 4. Connected to Internet (pip/huggingface/github)
 
 # Preparation
+### For basic usage
 - Install [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 - Download [majicMIX realistic](https://civitai.com/api/download/models/126470) and copy it to `stable-diffusion-webui/models/Stable-diffusion/`   
   - Set `majicmixRealistic_betterV2V25.safetensors` as Stable Diffusion checkpoint.
@@ -24,12 +25,11 @@ Advantages:
   - Extensions -> Install from URL (`https://github.com/kohya-ss/sd-webui-additional-networks.git`) -> Install
 - Install extension [adtailer](https://github.com/Bing-su/adetailer)
   - Extensions -> Install from URL (`https://github.com/Bing-su/adetailer.git`) -> Install
+
+### For high-resolution 1024x1024
 - Install extension [sd-webui-controlnet](https://github.com/Mikubill/sd-webui-controlnet)
   - Extensions -> Install from URL (`https://github.com/Mikubill/sd-webui-controlnet.git`) -> Install
-
-For high-resolution 1024x1024
-- Download [controlnet](https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main) to directory `stable-diffusion-webui/extensions/sd-webui-controlnet/models/`
-  - Download [control_v11f1e_sd15_tile.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11f1e_sd15_tile.pth)
+- Download Controlnet Tile Model [control_v11f1e_sd15_tile.pth](https://huggingface.co/lllyasviel/ControlNet-v1-1/blob/main/control_v11f1e_sd15_tile.pth) to directory `stable-diffusion-webui/extensions/sd-webui-controlnet/models/`
 
 # Installation
 1. Open "Extensions" tab.
