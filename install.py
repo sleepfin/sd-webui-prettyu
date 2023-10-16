@@ -53,15 +53,6 @@ with open(req_file) as file:
             print(e)
             print(f'Warning: Failed to install {package}, some preprocessors may not work.')
 
-
-# init git submodule
-cur_dir = os.path.dirname(os.path.realpath(__file__))
-try:
-    subprocess.check_call([launch.git, "-C", cur_dir, "submodule", "update", "--init"])
-except subprocess.CalledProcessError as e:
-    print(f"Couldn't perform 'git submodule update --init' on repository in '{cur_dir}':\n{e.output.decode('utf-8').strip()}\n")
-
-
 # install kohya
 kohya_dir = os.path.join(cur_dir, 'prettyu', 'third_party', 'sd-scripts')
 try:
