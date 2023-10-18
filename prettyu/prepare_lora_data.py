@@ -9,6 +9,7 @@ import argparse
 import numpy as np
 
 from cv_utils import segmentation, retouching, resizing
+from PIL import Image
 
 
 SUPPORTED_EXT = ['.jpg', '.jpeg', '.png', '.bmp']
@@ -80,7 +81,8 @@ def get_face_images(data_dir, output_dir):
         if os.path.splitext(file_path)[1].lower() not in SUPPORTED_EXT:
             continue
 
-        img = cv2.imread(file_path)
+        # img = cv2.imread(file_path)  # cv2.imread不支持中文路径
+        img = cv2.imdecode(np.fromfile(file_path, np.uint8), cv2.IMREAD_UNCHANGED)
         # 缩放
         img_resized = resizing.keep_ratio_resize(img, target_size=args.res)
         # 美颜
@@ -103,7 +105,9 @@ def get_face_images(data_dir, output_dir):
             file_rel_path = os.path.relpath(file_path, data_dir)
             file_rel_path = os.path.splitext(file_rel_path)[0] + f'_{i}.png'
             save_file_path = os.path.join(output_dir, file_rel_path)
-            cv2.imwrite(save_file_path, result_img, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+            # imwrite not support chinses
+            # cv2.imwrite(save_file_path, result_img, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+            Image.fromarray(result_img).save(save_file_path, quality=100)
     
     rename_output_dir(output_dir)
 

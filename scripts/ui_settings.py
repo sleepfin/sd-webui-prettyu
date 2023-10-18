@@ -5,7 +5,7 @@ from modules import script_callbacks, shared
 
 
 def init_ui_settings():
-    section = ('PrettyU', "prettyu")
+    section = ('PrettyU', "PrettyU")
     shared.opts.add_option("redundancy", shared.OptionInfo(
         3, "Generating photos will generate additional photos of this multiple and select the best photos from them", 
         gr.Slider, {"minimum": 1, "maximum": 8, "step": 1}, section=section))

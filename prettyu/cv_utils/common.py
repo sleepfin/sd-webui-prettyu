@@ -8,7 +8,8 @@ from PIL import Image
 
 
 def read_img_rgb(image_path):
-    return cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+    img = cv2.imdecode(np.fromfile(image_path, np.uint8), cv2.IMREAD_UNCHANGED)
+    return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 
 def base64_to_img(image_base64):
@@ -33,7 +34,7 @@ def img_to_sdwebui_base64(img):
 
 
 def save_img(img, path):
-    cv2.imwrite(path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+    Image.fromarray(img).save(path, quality=100)
 
 
 def grid_images(images_pattern, save_path, size=512, grid_size=(6, 4), spacing=10):
