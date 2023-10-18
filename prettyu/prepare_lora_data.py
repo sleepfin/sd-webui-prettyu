@@ -8,7 +8,7 @@ import argparse
 
 import numpy as np
 
-from cv_utils import segmentation, retouching, resizing
+from cv_utils import segmentation, retouching, resizing, common
 from PIL import Image
 
 
@@ -82,7 +82,7 @@ def get_face_images(data_dir, output_dir):
             continue
 
         # img = cv2.imread(file_path)  # cv2.imread不支持中文路径
-        img = cv2.imdecode(np.fromfile(file_path, np.uint8), cv2.IMREAD_UNCHANGED)
+        img = common.read_img_rgb(file_path)
         # 缩放
         img_resized = resizing.keep_ratio_resize(img, target_size=args.res)
         # 美颜
