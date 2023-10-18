@@ -141,4 +141,8 @@ def train_sd15_lora_pipeline(
     # copy model
     additional_networks_lora_path = os.path.join(os.path.dirname(os.path.dirname(CUR_DIR)), 'sd-webui-additional-networks', 'models', 'lora', f'{unique_hash_id}.safetensors')
     latest_model_path = os.path.join(PROJ_DIR, 'lora', 'models', f'sd15_{unique_hash_id}', 'last.safetensors')
-    os.symlink(latest_model_path, additional_networks_lora_path)
+    try:
+        os.symlink(latest_model_path, additional_networks_lora_path)
+    except OSError:
+        # Windows has no permission to create symlink.
+        shutil.copyfile(latest_model_path, additional_networks_lora_path)

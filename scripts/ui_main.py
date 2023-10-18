@@ -219,7 +219,10 @@ def remove_selected_lora_model(selected_models):
         model_link = os.path.join(additional_networks_dir, 'models', 'lora', f"{hash_id}.safetensors")
         print(f'removing symbol link {model_link}')
         if os.path.exists(model_link):
-            os.unlink(model_link)
+            if os.path.islink(model_link):
+                os.unlink(model_link)
+            else:
+                os.remove(model_link)
 
         model_data_dir = os.path.join(lora_model_dir, f'sd15_{hash_id}')
         print(f'removing lora model {raw_data_dir}')
