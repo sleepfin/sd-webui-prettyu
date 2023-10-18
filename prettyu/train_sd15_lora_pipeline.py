@@ -17,6 +17,7 @@ parser.add_argument("--mixed_precision", default="no", type=str, choices=["no", 
 parser.add_argument("--cache_latents", default=True, type=ast.literal_eval)
 parser.add_argument("--gradient_checkpointing", default=False, type=ast.literal_eval)
 parser.add_argument("--pretrained_model", default="/home/zzy2/workspace/stable-diffusion-webui/models/Stable-diffusion/majicmixRealistic_betterV2V25.safetensors", type=str)
+parser.add_argument("--max_data_loader_n_workers", default=8, type=int)
 
 args = parser.parse_args()
 
@@ -50,6 +51,7 @@ def main():
                    f'--xformers={args.xformers} ' \
                    f'--mixed_precision={args.mixed_precision} ' \
                    f'--cache_latents={args.cache_latents} ' \
+                   f'--max_data_loader_n_workers={args.max_data_loader_n_workers} ' \
                    f'--gradient_checkpointing={args.gradient_checkpointing}'
     print(train_script)
     subprocess.check_call(train_script, shell=True)

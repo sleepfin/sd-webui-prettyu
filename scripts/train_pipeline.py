@@ -78,6 +78,7 @@ def train_sd15_lora_pipeline(
         mixed_precision="no",
         cache_latents=True,
         gradient_checkpointing=False,
+        max_data_loader_n_workers=8,
         *args):
     
     unique_hash_id = hash10(unique_name)
@@ -124,6 +125,7 @@ def train_sd15_lora_pipeline(
                    f'--mixed_precision={mixed_precision} ' \
                    f'--cache_latents={cache_latents} ' \
                    f'--gradient_checkpointing={gradient_checkpointing} ' \
+                   f'--max_data_loader_n_workers={max_data_loader_n_workers} ' \
                    f'> {log_file_path} 2>&1'
     
     # update progress in sub thread

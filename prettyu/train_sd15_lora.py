@@ -18,6 +18,7 @@ parser.add_argument("--mixed_precision", default="no", type=str, choices=["no", 
 parser.add_argument("--cache_latents", default=True, type=ast.literal_eval)
 parser.add_argument("--gradient_checkpointing", default=False, type=ast.literal_eval)
 parser.add_argument("--pretrained_model", default="/home/zzy2/workspace/stable-diffusion-webui/models/Stable-diffusion/majicmixRealistic_betterV2V25.safetensors", type=str)
+parser.add_argument("--max_data_loader_n_workers", default=8, type=int)
 
 args = parser.parse_args()
 
@@ -46,6 +47,7 @@ def train_lora(train_data_dir):
           f'--network_alpha=32 ' \
           f'--lr_scheduler=cosine_with_restarts ' \
           f'--lr_scheduler_num_cycles=1 ' \
+          f'--max_data_loader_n_workers={args.max_data_loader_n_workers} ' \
           f'--mixed_precision={args.mixed_precision}'
     
     if args.xformers:

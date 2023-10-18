@@ -124,6 +124,7 @@ def start_train(unique_name, gender, train_images, progress=gr.Progress()):
                                  cache_latents=shared.opts.cache_latents,
                                  res=shared.opts.train_image_size,
                                  gradient_checkpointing=shared.opts.gradient_checkpointing,
+                                 max_data_loader_n_workers=shared.opts.max_data_loader_n_workers
                                  progress=progress)
     except DataFileAlreadyExistsError:
         return gr.update(value=[(f"Digital clone name={unique_name} already exists. You can remove it at `Generate Photos` tab.", "Error")], visible=True), gr.update(interactive=True)

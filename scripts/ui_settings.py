@@ -33,6 +33,8 @@ def init_ui_settings():
     shared.opts.add_option("gradient_checkpointing", shared.OptionInfo(
         False, "Enable gradient_checkpointing to save GPU memory usage in cost of longer training time", 
         gr.Checkbox, {"interactive": True}, section=section))
-    
+    shared.opts.add_option("max_data_loader_n_workers", shared.OptionInfo(
+        8, "Number of dataloader workers when training lora", 
+        gr.Slider, {"minimum": 1, "maximum": 32, "step": 1}, section=section))
 
 script_callbacks.on_ui_settings(init_ui_settings)
